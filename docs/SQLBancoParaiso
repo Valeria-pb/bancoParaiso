@@ -1,0 +1,41 @@
+CREATE DATABASE BancoParaiso;
+USE BancoParaiso;
+CREATE TABLE Livros (
+    idLivro UNIQUEIDENTIFIER PRIMARY KEY NEWID(),
+    titulo NVARCHAR(100) NOT NULL, 
+    anoPublicacao INT NOT NULL,
+    quantidadeExemplares INT DEFAULT 0 NOT NULL,
+    nomeAutor NVARCHAR(100) NOT NULL
+);
+CREATE TABLE Clientes(
+    idCliente UNIQUEIDENTIFIER PRIMARY KEY NEWID(),
+    nome NVARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(16) UNIQUE NOT NULL
+);
+CREATE TABLE Emprestimos(
+    idEmprestimo UNIQUEIDENTIFIER PRIMARY KEY NEWID(),
+    dataEmprestimo DATETIME NULL,
+    dataDevolucao DATETIME NULL,
+    idLivro UNIQUEIDENTIFIER NOT NULL,
+    idCliente UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT FK_EmprestimosLivros FOREIGN KEY (idLivro) REFERENCES Livros(idLivro),
+    CONSTRAINT FK_EmprestimosCliente FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente)
+);
+
+
+1. Modelagem do Banco de Dados:
+Livros 
+(título, ano de publicação, quantidade de exemplares, nomeAutor)
+Clientes (nome, email, senha)
+
+Empréstimos (data de empréstimo, data de devolução, idLivro, idCliente)
+
+Incluir os atributos principais de cada entidade e as relações entre elas (cardinalidades).
+Exemplo de comando para criação de banco de dados: CREATE DATABASE NomeDoBanco
+Exemplo de comando para criação de tabelas:
+USE NomeDoBanco
+CREATE TABLE NomeDaTabela(
+id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+nomeDaColuna TIPO_DE_DADO NOT NULL
+)
