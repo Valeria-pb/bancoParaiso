@@ -1,5 +1,44 @@
 const { sql, getconnection } = require('../config/db');
 const livroModel = {
+
+  buscarTodos: async ()=> {
+    try {
+      const pool = await getconnection();
+      const querySQL = 
+      `SELECT * FROM Livros`;
+
+      const result = await pool.request()
+        .query(querySQL);
+
+      return result.recordset;
+      
+    } catch (error) {
+      console.error("Erro ao buscar Livros:", error)
+      throw error;
+      
+    }
+  },
+
+  buscarUm : async (idLivro) =>{
+    try {
+      const pool = await getconnection();
+
+      const querySQL = 
+      `
+      SELECT * FROM Livros
+      WHERE  idLivro=@idLivro
+      `;
+      const result = await pool.request()
+        .input("idLivro", sql.UniqueIdentifier, idLivro)
+        .query(querySQL)
+      return result.recordset;
+
+    } catch (error) {
+      console.error("Errro ao buscar livro", error);
+      throw error;
+    }
+  },
+
   inserirLivro: async (titulo, anoPublicacao, quantidadeExemplares, nomeAutor) => {
     try {
       const pool = await getconnection();

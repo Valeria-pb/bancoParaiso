@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {clienteController} = require('../controllers/clienteController');
+const {livroController} = require('../controller/livroController');
 
-router.get("/livros", livroController.listarClientes);
-router.post("/livros", livroController.criarCliente);
+router.get("/livros", livroController.listarLivro);
+router.post("/livros", livroController.criarLivro);
 
 module.exports ={livroRoutes: router};
